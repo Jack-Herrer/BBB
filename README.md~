@@ -26,3 +26,10 @@ Optional updates
 - photography of bills for delayed input
 
 ![Alt text](/doc/budgetview.jpg), ![Alt text](/doc/optionsview.jpg)
+
+
+What makes this app different from other similar apps?
+
+Compared to other apps, this app is more user friendly. The user interface is very simple. Besides, the main difference between other apps, claiming to do the same, is that this app uses a database to give you information about the future. All other travel budget orientated apps are focussed on giving statistics to tell you where your money has gone. So instead of looking to the past, this app will help you look into the future. 
+
+

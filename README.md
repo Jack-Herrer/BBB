@@ -25,4 +25,4 @@ Optional updates
 - calculator for splitting bills
 - photography of bills for delayed input
 
-![Alt text](/doc/budgetview.jpg)
+![Alt text](/doc/budgetview.jpg), ![Alt text](/doc/optionsview.jpg)

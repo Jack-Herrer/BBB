@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class BudgetViewActivity extends AppCompatActivity {
@@ -21,10 +22,17 @@ public class BudgetViewActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
 
         SharedPreferences values = getSharedPreferences("values", Context.MODE_PRIVATE);
-        double bank_balance =  getDouble(values, "bank_balance", 0.00);
+        double bankBalance =  getDouble(values, "bankBalance", 0.00);
+        double startBalance = getDouble(values, "startBalance", 0.00);
 
         TextView balanceView = (TextView) findViewById(R.id.bv_ballance_amount_view);
-        balanceView.setText("" + bank_balance);
+        balanceView.setText("" + bankBalance);
+
+        TextView startBalanceView = (TextView) findViewById(R.id.bv_start_balance_view);
+        startBalanceView.setText("Start Balance: " + startBalance);
+
+        ProgressBar budgetBar = (ProgressBar) findViewById(R.id.bv_budget_bar);
+        budgetBar.setProgress((int) (((startBalance - bankBalance) / startBalance) * 100));
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

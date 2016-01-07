@@ -32,12 +32,17 @@ public class InputActivity extends AppCompatActivity {
         SharedPreferences values = getSharedPreferences("values", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = values.edit();
 
-        EditText bank_balance_box = (EditText)findViewById(R.id.inp_enter_balance);
+        EditText bankBalanceBox = (EditText)findViewById(R.id.inp_enter_balance);
+        EditText startBalanceBox = (EditText)findViewById(R.id.inp_start_balance_box);
 
 
         try{
-            double bank_balance = Double.parseDouble(bank_balance_box.getText().toString());
-            putDouble(editor, "bank_balance", bank_balance);
+            double bankBalance = Double.parseDouble(bankBalanceBox.getText().toString());
+            putDouble(editor, "bankBalance", bankBalance);
+
+            double startBalance = Double.parseDouble(startBalanceBox.getText().toString());
+            putDouble(editor, "startBalance", startBalance);
+
             editor.commit();
 
         } catch (final NumberFormatException e) {

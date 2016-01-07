@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
             android:ems="10"
-            android:id="@+id/editText2"
+            android:id="@+id/inp_start_balance_box"
             android:layout_below="@+id/my_toolbar"
             android:layout_alignParentEnd="true"
             android:layout_weight="1"

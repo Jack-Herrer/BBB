@@ -44,7 +44,7 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ab_balance_bar"
+        android:id="@+id/bv_budget_bar"
         android:layout_below="@+id/my_toolbar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
@@ -53,7 +53,7 @@
         android:progressTint="#f70a0a"
         android:progressBackgroundTint="#01e904"
         android:secondaryProgressTint="#f7810a"
-        android:secondaryProgress="20"
+        android:secondaryProgress="0"
         />
 
     <Button
@@ -85,6 +85,16 @@
         android:id="@+id/bv_ballance_amount_view"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/bv_start_balance_view"
+        android:layout_above="@+id/bv_input"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="48dp" />
 
 
 </RelativeLayout>

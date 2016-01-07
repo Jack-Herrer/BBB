@@ -12,10 +12,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
 public class AtmActivity extends AppCompatActivity {
+    public double exchangeRate = 0.8;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,19 +27,19 @@ public class AtmActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        final double exchangeRate = 0.8;
+//      final double exchangeRate = 0.8;
         final String homeCurrency = "€";
 
 
         SharedPreferences values = getSharedPreferences("values", Context.MODE_PRIVATE);
-        final double bank_balance =  getDouble(values, "bank_balance", 0.00);
+        final double bankBalance = getDouble(values, "bankBalance", 0.00);
+        final double startBalance = getDouble(values, "startBalance", 0.00);
         final TextView homeCurrencyView = (TextView) findViewById(R.id.atm_amount_entered_in_own_currency);
         final TextView balanceAfterView = (TextView) findViewById(R.id.atm_balance_after_withdrawal);
+        final ProgressBar balanceBar = (ProgressBar) findViewById(R.id.atm_balance_bar);
 
         TextView balanceView = (TextView) findViewById(R.id.atm_current_balance);
-        balanceView.setText("" + bank_balance);
-
-
+        balanceView.setText("" + bankBalance);
 
         final EditText inputBox = (EditText) findViewById(R.id.atm_withdrawal_input);
 
@@ -58,14 +61,15 @@ public class AtmActivity extends AppCompatActivity {
                 try {
                     double inputAmount = Double.parseDouble(inputBox.getText().toString());
                     homeCurrencyView.setText(homeCurrency+ " " + inputAmount * exchangeRate);
-                    balanceAfterView.setText(homeCurrency + " " + (bank_balance - (inputAmount * exchangeRate)));
+                    balanceAfterView.setText(homeCurrency + " " + (bankBalance - (inputAmount * exchangeRate)));
+
+                    balanceBar.setProgress((int) ((inputAmount / bankBalance) * 100 * exchangeRate));
 
                 } catch (final NumberFormatException e) {
 
                     //catch non doubles
 
                 }
-
             }
         });
     }
@@ -99,6 +103,10 @@ public class AtmActivity extends AppCompatActivity {
         return Double.longBitsToDouble(prefs.getLong(key, 0));
     }
 
+    SharedPreferences.Editor putDouble(final SharedPreferences.Editor edit, final String key, final double value) {
+        return edit.putLong(key, Double.doubleToRawLongBits(value));
+    }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.action_bar_menu, menu);
@@ -106,6 +114,20 @@ public class AtmActivity extends AppCompatActivity {
     }
 
     public void onWithdrawClick(View view) {
+        SharedPreferences values = getSharedPreferences("values", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = values.edit();
+
+        final double bankBalance = getDouble(values, "bankBalance", 0.00);
+
+
+        final EditText inputBox = (EditText) findViewById(R.id.atm_withdrawal_input);
+        double inputAmount = Double.parseDouble(inputBox.getText().toString());
+
+        putDouble(editor, "bankBalance", bankBalance - (inputAmount * exchangeRate));
+        editor.commit();
+
+
+
         Intent toBudgetView= new Intent(this, BudgetViewActivity.class);
         this.startActivity(toBudgetView);
         this.finish();

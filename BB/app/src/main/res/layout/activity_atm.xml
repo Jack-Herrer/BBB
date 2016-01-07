@@ -28,11 +28,11 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:max="100"
-        android:progress="20"
+        android:progress="0"
         android:progressTint="#f70a0a"
         android:progressBackgroundTint="#01e904"
-        android:secondaryProgressTint="#f7810a"
-        android:secondaryProgress="20"
+        android:secondaryProgressTint="#f70a0a"
+        android:secondaryProgress="0"
         android:indeterminate="false" />
 
     <Button

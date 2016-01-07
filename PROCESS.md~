@@ -27,3 +27,9 @@ Advanced interface development
 ## Design choices
 
 App idea changed. App will be a helper to give all relevant information for atm transactions in foreighn countries instead of a budget monitor. Bacause of this, the app will be a lot more simplistic and more relevant than the original idea.
+
+Listener implemented to edittext. User can see changes as the user is typing, no need to press an extra button to see effect
+
+## Design problem
+
+### double datatype inaccuracy

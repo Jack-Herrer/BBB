@@ -33,9 +33,10 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/my_toolbar">
+        android:layout_below="@+id/my_toolbar"
+        android:id="@+id/linearLayout">
 
         <CheckBox
             android:layout_width="wrap_content"
@@ -54,8 +55,34 @@
             android:id="@+id/inp_enter_balance"
             android:layout_below="@+id/my_toolbar"
             android:layout_alignParentEnd="true"
-            android:text="Enter amount"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:hint="Enter amount"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start Balance"
+            android:id="@+id/checkBox2"
+            android:checked="false" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/editText2"
+            android:layout_below="@+id/my_toolbar"
+            android:layout_alignParentEnd="true"
+            android:layout_weight="1"
+            android:hint="Enter amount" />
     </LinearLayout>
 
 </RelativeLayout>

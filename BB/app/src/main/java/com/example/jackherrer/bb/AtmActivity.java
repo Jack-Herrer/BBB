@@ -11,27 +11,22 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.TextView;
 
-public class BudgetViewActivity extends AppCompatActivity {
+public class AtmActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_budget_view);
+        setContentView(R.layout.activity_atm);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
 
         SharedPreferences values = getSharedPreferences("values", Context.MODE_PRIVATE);
         double bank_balance =  getDouble(values, "bank_balance", 0.00);
 
-        TextView balanceView = (TextView) findViewById(R.id.bv_ballance_amount_view);
+        TextView balanceView = (TextView) findViewById(R.id.atm_current_balance);
         balanceView.setText("" + bank_balance);
     }
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.action_bar_menu, menu);
-        return true;
-    }
-
 
     double getDouble(final SharedPreferences prefs, final String key, final double defaultValue) {
         if (!prefs.contains(key))
@@ -40,15 +35,15 @@ public class BudgetViewActivity extends AppCompatActivity {
         return Double.longBitsToDouble(prefs.getLong(key, 0));
     }
 
-    public void onInputClick(View view) {
-        Intent toInputActivity= new Intent(this, InputActivity.class);
-        this.startActivity(toInputActivity);
-        this.finish();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_bar_menu, menu);
+        return true;
     }
 
-    public void onAtmClick(View view) {
-        Intent toAtmActivity= new Intent(this, AtmActivity.class);
-        this.startActivity(toAtmActivity);
+    public void onWithdrawClick(View view) {
+        Intent toBudgetView= new Intent(this, BudgetViewActivity.class);
+        this.startActivity(toBudgetView);
         this.finish();
     }
 }

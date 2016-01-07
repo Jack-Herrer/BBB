@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/atm_withdrawal_input"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:hint="Enter Amount"
@@ -94,7 +94,8 @@
         android:text="after withdrawal"
         android:id="@+id/atm_balance_after_withdrawal"
         android:layout_below="@+id/atm_balance_after_withdrawal_view"
-        android:layout_alignEnd="@+id/atm_current_balance_view" />
+        android:gravity="center"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -102,7 +103,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="€"
         android:id="@+id/atm_amount_entered_in_own_currency"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/atm_withdrawal_input"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -111,6 +112,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="$"
         android:id="@+id/textView3"
-        android:layout_alignTop="@+id/editText"
-        android:layout_alignStart="@+id/editText" />
+        android:layout_alignTop="@+id/atm_withdrawal_input"
+        android:layout_alignStart="@+id/atm_withdrawal_input" />
 </RelativeLayout>

@@ -1,5 +1,23 @@
 #Design
 
+###MVP
+
+visualisation to help the user get feeling of their transaction
+making calculations before user even thinks of it
+all currencies available
+auto updating currencies
+converter
+transaction history
+
+###optional
+
+language support
+gps support
+data collection of transactions for analysis
+userexperience data collection for app improval
+forced updates
+advertisements
+
 ###Classes:
 
 Main status view activity
@@ -41,14 +59,23 @@ currency updater class
 menu listner class
 - handles actionbar clicking
 
+###Design problems
+
+'double' datatype inaccuracy
+
+
 ###Interface
 
 ![Alt text](/doc/atm1.png) ![Alt text](/doc/atm2.png)
 ![Alt text](/doc/main.png) ![Alt text](/doc/update.png)
 
-###API
+###API's and extra's
 
 currencylayer API or yahoo finance API
+API for collecting user experience data
+sqlite database for currencies and history
+
+
 
 
 

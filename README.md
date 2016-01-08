@@ -10,6 +10,7 @@ How does this app differ from other conversion apps? Besides all functionalities
 - use of any currency (auto or manual update)
 - Directly see effect of planned withdrawal to help you make decisions
 - use and visualisation of budget
+- works offline
 - Simplistic, no-nonsense design
 - No ads
 

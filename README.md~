@@ -1,35 +1,26 @@
 # B.B.B.
-Backpacker's Budget Boss
+ATM Assistant
 
-This is an app by a traveler, for travelers bound to their budget. Every shoestring traveler is wondering the same thing on a daily basis: can i afford this? This app will show you your daily budget and the consequences on your budget of any expense you will be making. 
+Everyone traveling to foreighn countries using another currency has to adapt him or herself to this currency. The problem is that most people have no actual feeling with the money they spend, like they would have in their home counties. This app will help you giving this feeling in no time! Through direct conversion and visualisation - just 5 seconds of your time just before any transaction - this app will give you all the relevant information right after you have grabbed it from you pocket, so you know what you will be doing before you spend you money.
 
-Features
+How does this app differ from other conversion apps? Besides all functionalities of another conversion app, this app will do all relevant calculations for you and will give you the answers to everything you want to know even before you asked yourself.
 
+###Features 
+- see all relevant information before foreighn atm transaction
+- use of any currency (auto or manual update)
+- Directly see effect of planned withdrawal to help you make decisions
+- use and visualisation of budget
 - Simplistic, no-nonsense design
 - No ads
-- Gives daily budget according to predetermined budges for entire or partial trip
-- Directly see effect of planned expense to help you make decisions
-- Adjusts budget to 
-    - planned income e.g. salary or wealthfare check \n 
-    - unforseen income
-    - ad-hoc expenses e.g. clothes or food
-    - planned expenses e.g. flights or tours
-    - expenses being the same for multiple days e.g. several nights within same accomodation
-- Is able to reserve budget for e.g. accomodation or food
-- Reserve more budget for specific parts of trip in case of cheaper/more expensive areas or parts.
-- Can base all calculations on ATM withdrawal instead in case user does not want to input every single expenses
 
-Optional updates
+###Optional updates
+- user accounts
+- language support
+- photography of e.g. bills for later analysis
 
-- use of any currency (auto update)
-- calculator for splitting bills
-- photography of bills for delayed input
+###Preview
 
-![Alt text](/doc/budgetview.jpg), ![Alt text](/doc/optionsview.jpg)
-
-
-What makes this app different from other similar apps?
-
-Compared to other apps, this app is more user friendly. The user interface is very simple. Besides, the main difference between other apps, claiming to do the same, is that this app uses a database to give you information about the future. All other travel budget orientated apps are focussed on giving statistics to tell you where your money has gone. So instead of looking to the past, this app will help you look into the future. 
+![Alt text](/doc/atm1.png) ![Alt text](/doc/atm2.png)
+!![Alt text](/doc/main.png) ![Alt text](/doc/update.png)
 
 

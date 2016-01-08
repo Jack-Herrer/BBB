@@ -30,6 +30,13 @@ App idea changed. App will be a helper to give all relevant information for atm 
 
 Listener implemented to edittext. User can see changes as the user is typing, no need to press an extra button to see effect
 
-## Design problem
+for sake of prototype main screen will visualise current balance compared to starting balance, atm function visualises proposed withdrawal ammount compared to current balance, not tot start balance
+
+Withdrawal history will be added
+
+## Design problems
 
 ### double datatype inaccuracy
+### collect data from users?
+### forced updates from user?
+### transaction costs?

@@ -40,9 +40,9 @@
         android:layout_height="wrap_content"
         android:text="withdraw"
         android:id="@+id/atm_withdraw_button"
+        android:onClick="onWithdrawClick"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="onWithdrawClick"/>
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"

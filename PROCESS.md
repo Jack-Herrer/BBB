@@ -24,6 +24,8 @@ Idea for first version: app will focus on bank transactions and visiualise how m
 
 Advanced interface development
 
+functionalities for prototype included
+
 ## Design choices
 
 App idea changed. App will be a helper to give all relevant information for atm transactions in foreighn countries instead of a budget monitor. Bacause of this, the app will be a lot more simplistic and more relevant than the original idea.
@@ -32,6 +34,33 @@ Listener implemented to edittext. User can see changes as the user is typing, no
 
 for sake of prototype main screen will visualise current balance compared to starting balance, atm function visualises proposed withdrawal ammount compared to current balance, not tot start balance
 
-## Design problem
+Withdrawal history will be added
+
+## Design problems
 
 ### double datatype inaccuracy
+### collect data from users?
+### forced updates from user?
+### transaction costs?
+
+# Day 5
+
+Change README.md to match new target of project
+
+Design document
+
+Bug fixes
+
+## Design Choices
+
+New class will be made to contain all common methods. Methods will be static wherefore no new instances must be created every time.
+
+View (left) button will get transaction history screen with listview
+
+## Design porblems
+
+### using accounts yes or no? This is a big crack in user comfort, but a huge leap in the value of data collection.
+### how will android's retrun button behave?
+
+
+

@@ -117,14 +117,16 @@ public class AtmActivity extends AppCompatActivity {
         SharedPreferences values = getSharedPreferences("values", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = values.edit();
 
-        final double bankBalance = getDouble(values, "bankBalance", 0.00);
+        try {
+            final double bankBalance = getDouble(values, "bankBalance", 0.00);
+            final EditText inputBox = (EditText) findViewById(R.id.atm_withdrawal_input);
+            double inputAmount = Double.parseDouble(inputBox.getText().toString());
+            putDouble(editor, "bankBalance", bankBalance - (inputAmount * exchangeRate));
+            editor.commit();
+        } catch (final NumberFormatException e) {
+            //catch non doubles
+        }
 
-
-        final EditText inputBox = (EditText) findViewById(R.id.atm_withdrawal_input);
-        double inputAmount = Double.parseDouble(inputBox.getText().toString());
-
-        putDouble(editor, "bankBalance", bankBalance - (inputAmount * exchangeRate));
-        editor.commit();
 
 
 

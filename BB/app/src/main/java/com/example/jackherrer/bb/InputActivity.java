@@ -1,5 +1,9 @@
 package com.example.jackherrer.bb;
 
+/**
+ * Created by Michiel van der List on 6-1-16.
+ */
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,8 +14,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class InputActivity extends AppCompatActivity {
 
@@ -33,15 +35,15 @@ public class InputActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = values.edit();
 
         EditText bankBalanceBox = (EditText)findViewById(R.id.inp_enter_balance);
-        EditText startBalanceBox = (EditText)findViewById(R.id.inp_start_balance_box);
+        EditText budgetBox = (EditText)findViewById(R.id.inp_budget_box);
 
 
         try{
             double bankBalance = Double.parseDouble(bankBalanceBox.getText().toString());
             putDouble(editor, "bankBalance", bankBalance);
 
-            double startBalance = Double.parseDouble(startBalanceBox.getText().toString());
-            putDouble(editor, "startBalance", startBalance);
+            double budget = Double.parseDouble(budgetBox.getText().toString());
+            putDouble(editor, "budget", budget);
 
             editor.commit();
 

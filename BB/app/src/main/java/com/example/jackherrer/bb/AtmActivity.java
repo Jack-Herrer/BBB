@@ -1,4 +1,7 @@
 package com.example.jackherrer.bb;
+/**
+ * Created by Michiel van der List on 6-1-16.
+ */
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +17,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.io.IOException;
 
 
 public class AtmActivity extends AppCompatActivity {
@@ -33,7 +41,6 @@ public class AtmActivity extends AppCompatActivity {
 
         SharedPreferences values = getSharedPreferences("values", Context.MODE_PRIVATE);
         final double bankBalance = getDouble(values, "bankBalance", 0.00);
-        final double startBalance = getDouble(values, "startBalance", 0.00);
         final TextView homeCurrencyView = (TextView) findViewById(R.id.atm_amount_entered_in_own_currency);
         final TextView balanceAfterView = (TextView) findViewById(R.id.atm_balance_after_withdrawal);
         final ProgressBar balanceBar = (ProgressBar) findViewById(R.id.atm_balance_bar);
@@ -134,4 +141,15 @@ public class AtmActivity extends AppCompatActivity {
         this.startActivity(toBudgetView);
         this.finish();
     }
+
+//    private void writeItems() {
+//        File filesDir = getFilesDir();
+//        File todoFile = new File(filesDir, "history.txt");
+//        try {
+//            FileUtils.writeLines(todoFile, items);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 }
+
+

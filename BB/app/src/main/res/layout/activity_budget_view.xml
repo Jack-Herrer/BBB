@@ -34,11 +34,12 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View"
-        android:id="@+id/bv_view"
+        android:text="History"
+        android:id="@+id/bv_history_view"
         android:layout_gravity="bottom|right"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:onClick="onHistoryClick"/>
 
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"

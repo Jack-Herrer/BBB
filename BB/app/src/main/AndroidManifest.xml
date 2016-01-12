@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".InputActivity" />
-        <activity android:name=".AtmActivity"></activity>
+        <activity android:name=".AtmActivity" />
+        <activity android:name=".HistoryViewActivity"></activity>
     </application>
 
 </manifest>

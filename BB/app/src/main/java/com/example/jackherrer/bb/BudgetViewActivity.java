@@ -1,5 +1,9 @@
 package com.example.jackherrer.bb;
 
+/**
+ * Created by Michiel van der List on 6-1-16.
+ */
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -40,7 +44,6 @@ public class BudgetViewActivity extends AppCompatActivity {
         return true;
     }
 
-
     double getDouble(final SharedPreferences prefs, final String key, final double defaultValue) {
         if (!prefs.contains(key))
             return defaultValue;
@@ -57,6 +60,12 @@ public class BudgetViewActivity extends AppCompatActivity {
     public void onAtmClick(View view) {
         Intent toAtmActivity= new Intent(this, AtmActivity.class);
         this.startActivity(toAtmActivity);
+        this.finish();
+    }
+
+    public void onHistoryClick(View view) {
+        Intent toHistoryViewActivity= new Intent(this, HistoryViewActivity.class);
+        this.startActivity(toHistoryViewActivity);
         this.finish();
     }
 }

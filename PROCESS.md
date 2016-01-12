@@ -57,10 +57,33 @@ New class will be made to contain all common methods. Methods will be static whe
 
 View (left) button will get transaction history screen with listview
 
-## Design porblems
+## Design problems
 
 ### using accounts yes or no? This is a big crack in user comfort, but a huge leap in the value of data collection.
 ### how will android's retrun button behave?
+
+# Day 6
+
+Start with history view
+History view will be list view
+
+##Design choices
+
+Optional login will be added later for cross platform use. App will still be usable without login thoug.
+
+# Day 7 
+
+Standard "to do list" history view does not work for this platform
+
+##Design choices
+
+Parse api database for history for cross platform will be used
+
+User accounts required for the latter
+
+currency updates will be implemented first
+
+
 
 
 

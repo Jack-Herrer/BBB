@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import org.apache.commons.io.FileUtils;
@@ -36,6 +38,7 @@ public class HistoryViewActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1, items);
 
         lvItems.setAdapter(itemsAdapter);
+        setupListViewListener();
     }
 
     public void onBack(View view) {
@@ -44,23 +47,47 @@ public class HistoryViewActivity extends AppCompatActivity {
         this.finish();
     }
 
+    public void addItem(String text) {
+        itemsAdapter.add(text);
+        writeItems();
+    }
+
+
     private void readItems() {
         File filesDir = getFilesDir();
-        File todoFile = new File(filesDir, "history.txt");
+        File historyfile = new File(filesDir, "history.txt");
         try {
-            items = new ArrayList<String>(FileUtils.readLines(todoFile));
+            items = new ArrayList<String>(FileUtils.readLines(historyfile));
         } catch (IOException e) {
             items = new ArrayList<String>();
         }
     }
 
-    private void writeItems() {
+    public void writeItems() {
         File filesDir = getFilesDir();
-        File todoFile = new File(filesDir, "history.txt");
+        File historyfile = new File(filesDir, "history.txt");
         try {
-            FileUtils.writeLines(todoFile, items);
+            FileUtils.writeLines(historyfile, items);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    private void setupListViewListener() {
+        lvItems.setOnItemLongClickListener(
+                new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> adapter,
+                                                   View item, int pos, long id) {
+                        // Remove the item within array at position
+                        items.remove(pos);
+                        // Refresh the adapter
+                        itemsAdapter.notifyDataSetChanged();
+                        writeItems();
+                        // Return true consumes the long click event (marks it handled)
+                        return true;
+                    }
+                });
     }
 }

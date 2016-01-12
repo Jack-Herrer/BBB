@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -22,10 +23,14 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
 
 public class AtmActivity extends AppCompatActivity {
     public double exchangeRate = 0.8;
+
+    private ArrayList<String> items;
 
 
     @Override
@@ -134,22 +139,35 @@ public class AtmActivity extends AppCompatActivity {
             //catch non doubles
         }
 
-
-
+//        HistoryViewActivity historyViewActivity = new HistoryViewActivity();
+//        historyViewActivity.addItem("test");
 
         Intent toBudgetView= new Intent(this, BudgetViewActivity.class);
         this.startActivity(toBudgetView);
         this.finish();
     }
 
+//    private void writeToFile(String data) {
+//        try {
+//            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(this.openFileOutput
+//                    ("history.txt", Context.MODE_PRIVATE));
+//            outputStreamWriter.write(data);
+//            outputStreamWriter.close();
+//        }
+//        catch (IOException e) {
+//            Log.e("Exception", "File write failed: " + e.toString());
+//        }
+//    }
+
 //    private void writeItems() {
 //        File filesDir = getFilesDir();
-//        File todoFile = new File(filesDir, "history.txt");
+//        File historyfile = new File(filesDir, "history.txt");
 //        try {
-//            FileUtils.writeLines(todoFile, items);
+//            FileUtils.writeLines(historyfile, items);
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
+//    }
 }
 
 

@@ -97,5 +97,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="48dp" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log in"
+        android:id="@+id/bv_log_in_button"
+        android:layout_below="@+id/my_toolbar"
+        android:layout_centerHorizontal="true"
+        android:onClick="onLoginClick"/>
+
 
 </RelativeLayout>

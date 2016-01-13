@@ -68,4 +68,10 @@ public class BudgetViewActivity extends AppCompatActivity {
         this.startActivity(toHistoryViewActivity);
         this.finish();
     }
+
+    public void onLoginClick(View view) {
+        Intent toLoginActivity= new Intent(this, LoginActivity.class);
+        this.startActivity(toLoginActivity);
+        this.finish();
+    }
 }

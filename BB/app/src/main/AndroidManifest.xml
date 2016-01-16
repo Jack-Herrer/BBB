@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".InputActivity" />
+        <activity android:name=".UpdateActivity" />
         <activity android:name=".AtmActivity" />
         <activity android:name=".HistoryViewActivity" />
         <activity android:name=".LoginActivity"></activity>

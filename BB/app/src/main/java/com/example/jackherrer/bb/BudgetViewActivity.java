@@ -52,7 +52,7 @@ public class BudgetViewActivity extends AppCompatActivity {
     }
 
     public void onInputClick(View view) {
-        Intent toInputActivity= new Intent(this, InputActivity.class);
+        Intent toInputActivity= new Intent(this, UpdateActivity.class);
         this.startActivity(toInputActivity);
         this.finish();
     }

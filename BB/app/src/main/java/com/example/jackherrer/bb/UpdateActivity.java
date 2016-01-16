@@ -7,15 +7,27 @@ package com.example.jackherrer.bb;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
-public class InputActivity extends AppCompatActivity {
+import com.loopj.android.http.*;
+
+import java.io.UnsupportedEncodingException;
+
+import cz.msebera.android.httpclient.Header;
+
+
+public class UpdateActivity extends AppCompatActivity {
+
+    private static final String CURRENCY_URL  = "https://openexchangerates.org/api/latest.json?app_id=7777406857a9410a90d1f4891a5e47fd";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,5 +81,32 @@ public class InputActivity extends AppCompatActivity {
         return Double.longBitsToDouble(prefs.getLong(key, 0));
     }
 
+    public void onUpdateCurrenciesClick(View view) {
 
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(CURRENCY_URL, new AsyncHttpResponseHandler() {
+
+            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+
+                String decoded = null;
+                try {
+                    decoded = new String(response, "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
+                Log.i("Currencies:", decoded);
+                Toast.makeText(getApplicationContext(),  "Update Succesful" , Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                Toast.makeText(getApplicationContext(),  "Update Failed. Try again" , Toast.LENGTH_SHORT).show();
+
+            }
+
+        });
+
+    }
 }

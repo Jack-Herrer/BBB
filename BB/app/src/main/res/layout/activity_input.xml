@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.jackherrer.bb.InputActivity">
+    tools:context=".UpdateActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -84,5 +84,14 @@
             android:layout_weight="1"
             android:hint="Enter amount" />
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update Currencies"
+        android:id="@+id/upd_update_currencies"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="onUpdateCurrenciesClick"/>
 
 </RelativeLayout>

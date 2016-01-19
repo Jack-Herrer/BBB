@@ -95,6 +95,13 @@ public class UpdateActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+                SharedPreferences values = getSharedPreferences("values", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = values.edit();
+                editor.putBoolean("currency_updated", true);
+                editor.putString("recent_currencies", decoded);
+                editor.commit();
+
+
                 Log.i("Currencies:", decoded);
                 Toast.makeText(getApplicationContext(),  "Update Succesful" , Toast.LENGTH_SHORT).show();
 

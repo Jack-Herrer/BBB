@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -26,8 +27,24 @@ public class BudgetViewActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
 
         SharedPreferences values = getSharedPreferences("values", Context.MODE_PRIVATE);
+
         double bankBalance =  getDouble(values, "bankBalance", 0.00);
         double startBalance = getDouble(values, "startBalance", 0.00);
+        boolean currenciesUpdated = values.getBoolean("currencies_updated", false);
+
+        if(currenciesUpdated) {
+
+            //currencies = oldcurrencies
+            //balance = (balance / by old currency) * new currency
+            // set homecurrency
+            // set guest currency
+
+            String newCurrencies = values.getString("recent_currencies", "failed");
+            Log.i("currencies budgetview", newCurrencies);
+            SharedPreferences.Editor editor = values.edit();
+            editor.putBoolean("currency_updated", false);
+            editor.commit();
+        }
 
         TextView balanceView = (TextView) findViewById(R.id.bv_ballance_amount_view);
         balanceView.setText("" + bankBalance);

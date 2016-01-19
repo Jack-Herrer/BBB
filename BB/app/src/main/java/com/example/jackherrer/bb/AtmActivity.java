@@ -45,6 +45,8 @@ public class AtmActivity extends AppCompatActivity {
 
 
         SharedPreferences values = getSharedPreferences("values", Context.MODE_PRIVATE);
+
+
         final double bankBalance = getDouble(values, "bankBalance", 0.00);
         final TextView homeCurrencyView = (TextView) findViewById(R.id.atm_amount_entered_in_own_currency);
         final TextView balanceAfterView = (TextView) findViewById(R.id.atm_balance_after_withdrawal);
@@ -54,6 +56,10 @@ public class AtmActivity extends AppCompatActivity {
         balanceView.setText("" + bankBalance);
 
         final EditText inputBox = (EditText) findViewById(R.id.atm_withdrawal_input);
+
+        final TextView foreighCurrencySymbol = (TextView) findViewById(R.id.atm_foreign_symbol);
+        final String foreignCurrency = values.getString("foreign_currency", "N.A.");
+        foreighCurrencySymbol.setText(foreignCurrency);
 
         inputBox.addTextChangedListener(new TextWatcher() {
 
@@ -129,45 +135,23 @@ public class AtmActivity extends AppCompatActivity {
         SharedPreferences values = getSharedPreferences("values", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = values.edit();
 
+
         try {
-            final double bankBalance = getDouble(values, "bankBalance", 0.00);
+            final double bankBalance = getDouble(values, "bankBalance", 2.10);
             final EditText inputBox = (EditText) findViewById(R.id.atm_withdrawal_input);
             double inputAmount = Double.parseDouble(inputBox.getText().toString());
             putDouble(editor, "bankBalance", bankBalance - (inputAmount * exchangeRate));
             editor.commit();
+            ParseApp.saveInParse("bankBalance", bankBalance  - (inputAmount * exchangeRate));
         } catch (final NumberFormatException e) {
             //catch non doubles
         }
-
-//        HistoryViewActivity historyViewActivity = new HistoryViewActivity();
-//        historyViewActivity.addItem("test");
 
         Intent toBudgetView= new Intent(this, BudgetViewActivity.class);
         this.startActivity(toBudgetView);
         this.finish();
     }
 
-//    private void writeToFile(String data) {
-//        try {
-//            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(this.openFileOutput
-//                    ("history.txt", Context.MODE_PRIVATE));
-//            outputStreamWriter.write(data);
-//            outputStreamWriter.close();
-//        }
-//        catch (IOException e) {
-//            Log.e("Exception", "File write failed: " + e.toString());
-//        }
-//    }
-
-//    private void writeItems() {
-//        File filesDir = getFilesDir();
-//        File historyfile = new File(filesDir, "history.txt");
-//        try {
-//            FileUtils.writeLines(historyfile, items);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }
 
 

@@ -111,7 +111,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="$"
-        android:id="@+id/textView3"
+        android:id="@+id/atm_foreign_symbol"
         android:layout_alignTop="@+id/atm_withdrawal_input"
         android:layout_alignStart="@+id/atm_withdrawal_input" />
 </RelativeLayout>

@@ -17,10 +17,18 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.parse.ParseUser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class BudgetViewActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        currentUser.put("emailVerified", true);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_budget_view);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -28,9 +36,11 @@ public class BudgetViewActivity extends AppCompatActivity {
 
         SharedPreferences values = getSharedPreferences("values", Context.MODE_PRIVATE);
 
-        double bankBalance =  getDouble(values, "bankBalance", 0.00);
-        double startBalance = getDouble(values, "startBalance", 0.00);
+        double bankBalance =  Update.getDouble(values, "bankBalance", 0.00);
+        double budget = Update.getDouble(values, "budget", 0.00);
         boolean currenciesUpdated = values.getBoolean("currencies_updated", false);
+        String foreignCurrency = values.getString("foreign_currency", "n.a.");
+
 
         if(currenciesUpdated) {
 
@@ -40,6 +50,15 @@ public class BudgetViewActivity extends AppCompatActivity {
             // set guest currency
 
             String newCurrencies = values.getString("recent_currencies", "failed");
+
+
+            try {
+                JSONObject newCurrenciesObject = new JSONObject(newCurrencies);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
             Log.i("currencies budgetview", newCurrencies);
             SharedPreferences.Editor editor = values.edit();
             editor.putBoolean("currency_updated", false);
@@ -50,10 +69,10 @@ public class BudgetViewActivity extends AppCompatActivity {
         balanceView.setText("" + bankBalance);
 
         TextView startBalanceView = (TextView) findViewById(R.id.bv_start_balance_view);
-        startBalanceView.setText("Start Balance: " + startBalance);
+        startBalanceView.setText("Start Balance: " + budget);
 
         ProgressBar budgetBar = (ProgressBar) findViewById(R.id.bv_budget_bar);
-        budgetBar.setProgress((int) (((startBalance - bankBalance) / startBalance) * 100));
+        budgetBar.setProgress((int) (((budget - bankBalance) / budget) * 100));
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -61,12 +80,6 @@ public class BudgetViewActivity extends AppCompatActivity {
         return true;
     }
 
-    double getDouble(final SharedPreferences prefs, final String key, final double defaultValue) {
-        if (!prefs.contains(key))
-            return defaultValue;
-
-        return Double.longBitsToDouble(prefs.getLong(key, 0));
-    }
 
     public void onInputClick(View view) {
         Intent toInputActivity= new Intent(this, UpdateActivity.class);

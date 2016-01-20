@@ -41,6 +41,8 @@ public class UpdateActivity extends AppCompatActivity {
         //test foreign currency
         Update.changeForeignCurrency(this, "GBP");
 
+        //test home currency
+        Update.changeHomeCurrency(this, "EUR");
 
         try{
             double bankBalance = Double.parseDouble(bankBalanceBox.getText().toString());

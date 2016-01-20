@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.commons.io.FileUtils;
 
@@ -28,10 +29,8 @@ import java.util.ArrayList;
 
 
 public class AtmActivity extends AppCompatActivity {
-    public double exchangeRate = 0.8;
-
+    public double exchangeRate = 0.0;
     private ArrayList<String> items;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +40,10 @@ public class AtmActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
 
 //      final double exchangeRate = 0.8;
-        final String homeCurrency = "€";
-
-
         SharedPreferences values = getSharedPreferences("values", Context.MODE_PRIVATE);
+        final String homeCurrency = values.getString("home_currency", "error");
 
-
-        final double bankBalance = getDouble(values, "bankBalance", 0.00);
+        final double bankBalance = Update.getDouble(values, "bankBalance", 0.00);
         final TextView homeCurrencyView = (TextView) findViewById(R.id.atm_amount_entered_in_own_currency);
         final TextView balanceAfterView = (TextView) findViewById(R.id.atm_balance_after_withdrawal);
         final ProgressBar balanceBar = (ProgressBar) findViewById(R.id.atm_balance_bar);
@@ -57,73 +53,46 @@ public class AtmActivity extends AppCompatActivity {
 
         final EditText inputBox = (EditText) findViewById(R.id.atm_withdrawal_input);
 
-        final TextView foreighCurrencySymbol = (TextView) findViewById(R.id.atm_foreign_symbol);
+        final TextView foreignCurrencySymbol = (TextView) findViewById(R.id.atm_foreign_symbol);
         final String foreignCurrency = values.getString("foreign_currency", "N.A.");
-        foreighCurrencySymbol.setText(foreignCurrency);
+        Toast.makeText(this, foreignCurrency, Toast.LENGTH_SHORT).show();
+
+        foreignCurrencySymbol.setText(foreignCurrency);
+        homeCurrencyView.setText(homeCurrency);
 
         inputBox.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
-            }
-
+            // real time conversion during typing
             @Override
-            public void afterTextChanged(Editable editable) {
-//
+            public void afterTextChanged(Editable editable) {//
                 try {
                     double inputAmount = Double.parseDouble(inputBox.getText().toString());
                     homeCurrencyView.setText(homeCurrency+ " " + inputAmount * exchangeRate);
                     balanceAfterView.setText(homeCurrency + " " + (bankBalance - (inputAmount * exchangeRate)));
-
                     balanceBar.setProgress((int) ((inputAmount / bankBalance) * 100 * exchangeRate));
 
                 } catch (final NumberFormatException e) {
-
-                    //catch non doubles
-
+                    Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-
-
-//    et1.addTextChangedListener(new TextWatcher() {
-//        @Override
-//        public void onTextChanged(CharSequence s, int start, int before, int count) {
+//    double getDouble(final SharedPreferences prefs, final String key, final double defaultValue) {
+//        if (!prefs.contains(key))
+//            return defaultValue;
 //
-//            // TODO Auto-generated method stub
-//        }
+//        return Double.longBitsToDouble(prefs.getLong(key, 0));
+//    }
 //
-//        @Override
-//        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            // TODO Auto-generated method stub
-//        }
-//
-//        @Override
-//        public void afterTextChanged(Editable s) {
-//
-//            // TODO Auto-generated method stub
-//        }
-//    });
-
-    double getDouble(final SharedPreferences prefs, final String key, final double defaultValue) {
-        if (!prefs.contains(key))
-            return defaultValue;
-
-        return Double.longBitsToDouble(prefs.getLong(key, 0));
-    }
-
-    SharedPreferences.Editor putDouble(final SharedPreferences.Editor edit, final String key, final double value) {
-        return edit.putLong(key, Double.doubleToRawLongBits(value));
-    }
+//    SharedPreferences.Editor putDouble(final SharedPreferences.Editor edit, final String key, final double value) {
+//        return edit.putLong(key, Double.doubleToRawLongBits(value));
+//    }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -137,10 +106,10 @@ public class AtmActivity extends AppCompatActivity {
 
 
         try {
-            final double bankBalance = getDouble(values, "bankBalance", 2.10);
+            final double bankBalance = Update.getDouble(values, "bankBalance", 2.10);
             final EditText inputBox = (EditText) findViewById(R.id.atm_withdrawal_input);
             double inputAmount = Double.parseDouble(inputBox.getText().toString());
-            putDouble(editor, "bankBalance", bankBalance - (inputAmount * exchangeRate));
+            Update.putDouble(editor, "bankBalance", bankBalance - (inputAmount * exchangeRate));
             editor.commit();
             ParseApp.saveInParse("bankBalance", bankBalance  - (inputAmount * exchangeRate));
         } catch (final NumberFormatException e) {

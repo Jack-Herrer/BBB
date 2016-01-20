@@ -26,9 +26,6 @@ public class BudgetViewActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        currentUser.put("emailVerified", true);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_budget_view);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -49,7 +46,7 @@ public class BudgetViewActivity extends AppCompatActivity {
             // set homecurrency
             // set guest currency
 
-            String newCurrencies = values.getString("recent_currencies", "failed");
+            String newCurrencies = values.getString("recent_currencies", "error");
 
 
             try {

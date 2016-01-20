@@ -6,10 +6,8 @@ import android.util.Log;
 import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.UnsupportedEncodingException;
 import cz.msebera.android.httpclient.Header;
 
@@ -19,7 +17,6 @@ import cz.msebera.android.httpclient.Header;
 public class Update {
 
     private static final String CURRENCY_URL  = "https://openexchangerates.org/api/latest.json?app_id=7777406857a9410a90d1f4891a5e47fd";
-
 
     static public void currencyUpdate(final Context context){
 
@@ -43,7 +40,6 @@ public class Update {
                     e.printStackTrace();
                 }
 
-
                 //save currencies in parse
                 ParseApp.saveInParse("lastCurrencies", String.valueOf(ratesJson));
 
@@ -55,24 +51,64 @@ public class Update {
 
                 Log.i("Currencies:", String.valueOf(ratesJson));
                 Toast.makeText(context, "Update Succesful", Toast.LENGTH_SHORT).show();
-
+                
+                setExchangeRate(context);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
                 Toast.makeText(context, "Update Failed. Try again", Toast.LENGTH_SHORT).show();
-
             }
 
         });
-
     }
 
     static void changeForeignCurrency(Context context, String currency){
         SharedPreferences values = context.getSharedPreferences("values", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = values.edit();
         editor.putString("foreign_currency", currency);
-        Log.i("fcurrency", currency);
+        editor.commit();
+    }
+
+    static void changeHomeCurrency(Context context, String currency){
+        SharedPreferences values = context.getSharedPreferences("values", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = values.edit();
+        editor.putString("home_currency", currency);
+        editor.commit();
+    }
+
+    static void setExchangeRate(Context context) {
+        SharedPreferences values = context.getSharedPreferences("values", Context.MODE_PRIVATE);
+        String currenciesString = values.getString("recent_currencies", "error");
+        SharedPreferences.Editor editor = values.edit();
+
+        JSONObject currenciesObject = null;
+        try {
+            currenciesObject = new JSONObject(currenciesString);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // get home and foreign currency
+        String homecurrency = values.getString("home_currency", "error");
+        double homeRate = 0;
+        try {
+            homeRate = currenciesObject.getDouble(homecurrency);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String foreignCurrency = values.getString("foreign_currency", "error");
+        double foreignRate = 0;
+        try {
+            foreignRate = currenciesObject.getDouble(foreignCurrency);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        double exchangeRate = ((1 / homeRate) * foreignRate);
+        putDouble(editor, "exchangeRate", exchangeRate);
+
     }
 
     static SharedPreferences.Editor putDouble(final SharedPreferences.Editor edit, final String key, final double value) {

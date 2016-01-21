@@ -51,7 +51,6 @@ public class Update {
 
                 Log.i("Currencies:", String.valueOf(ratesJson));
                 Toast.makeText(context, "Update Succesful", Toast.LENGTH_SHORT).show();
-                
                 setExchangeRate(context);
             }
 
@@ -59,7 +58,6 @@ public class Update {
             public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
                 Toast.makeText(context, "Update Failed. Try again", Toast.LENGTH_SHORT).show();
             }
-
         });
     }
 
@@ -85,6 +83,7 @@ public class Update {
         JSONObject currenciesObject = null;
         try {
             currenciesObject = new JSONObject(currenciesString);
+            currenciesObject = currenciesObject.getJSONObject("rates");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -95,7 +94,7 @@ public class Update {
         try {
             homeRate = currenciesObject.getDouble(homecurrency);
         } catch (JSONException e) {
-            e.printStackTrace();
+            Toast.makeText(context, "error in json" +  homecurrency, Toast.LENGTH_SHORT).show();
         }
 
         String foreignCurrency = values.getString("foreign_currency", "error");
@@ -106,8 +105,10 @@ public class Update {
             e.printStackTrace();
         }
 
-        double exchangeRate = ((1 / homeRate) * foreignRate);
-        putDouble(editor, "exchangeRate", exchangeRate);
+        double exchangeRate = ((1 / foreignRate) * homeRate);
+        putDouble(editor, "exchange_rate", exchangeRate);
+        Toast.makeText(context, "rate" + exchangeRate , Toast.LENGTH_SHORT).show();
+        editor.commit();
 
     }
 

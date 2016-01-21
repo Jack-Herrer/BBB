@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -20,17 +19,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.commons.io.FileUtils;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-
 
 public class AtmActivity extends AppCompatActivity {
     public double exchangeRate = 0.0;
-    private ArrayList<String> items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +30,10 @@ public class AtmActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-//      final double exchangeRate = 0.8;
         SharedPreferences values = getSharedPreferences("values", Context.MODE_PRIVATE);
         final String homeCurrency = values.getString("home_currency", "error");
+
+        exchangeRate = Update.getDouble(values, "exchange_rate", 0.0);
 
         final double bankBalance = Update.getDouble(values, "bankBalance", 0.00);
         final TextView homeCurrencyView = (TextView) findViewById(R.id.atm_amount_entered_in_own_currency);
@@ -82,17 +74,6 @@ public class AtmActivity extends AppCompatActivity {
             }
         });
     }
-
-//    double getDouble(final SharedPreferences prefs, final String key, final double defaultValue) {
-//        if (!prefs.contains(key))
-//            return defaultValue;
-//
-//        return Double.longBitsToDouble(prefs.getLong(key, 0));
-//    }
-//
-//    SharedPreferences.Editor putDouble(final SharedPreferences.Editor edit, final String key, final double value) {
-//        return edit.putLong(key, Double.doubleToRawLongBits(value));
-//    }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

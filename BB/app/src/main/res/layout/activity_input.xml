@@ -84,6 +84,23 @@
             android:layout_weight="1"
             android:hint="Enter amount" />
     </LinearLayout>
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/currencies"
+        android:prompt="@string/country_prompt"
+        android:layout_below="@+id/upd_update_currencies"
+        android:layout_alignParentEnd="true" />
+
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinner1"
+        android:layout_alignParentStart="true"
+        android:entries="@array/currencies"
+        />
 
     <Button
         android:layout_width="wrap_content"

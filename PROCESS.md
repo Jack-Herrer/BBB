@@ -83,6 +83,34 @@ User accounts required for the latter
 
 currency updates will be implemented first
 
+# Day 8
+
+parse user accounts implemented
+
+##Design choice
+
+useraccounts will be impelmented first in order not to re-implement too much
+
+# Day 9 
+
+### Laptop breakdown, laptop does not receive any power
+
+# day 10
+
+### getting new laptop, installing os and re-installing software
+
+#day 11
+
+All rates can be received as json object and be extracted
+
+# day 12
+
+user accounts can save information including full json with exchange rates
+
+# day 13
+
+all rates in shared prefs automatically changed through setExchangeRate method
+
 
 
 

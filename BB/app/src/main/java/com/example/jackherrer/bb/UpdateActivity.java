@@ -24,6 +24,8 @@ public class UpdateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_input);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
+
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

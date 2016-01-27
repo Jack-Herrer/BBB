@@ -20,29 +20,19 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Update"
-        android:id="@+id/inp_update"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="onUpdateClick"
-        />
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/my_toolbar"
-        android:id="@+id/linearLayout">
+        android:id="@+id/layout1">
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bank Balance"
-            android:id="@+id/checkBox"
+            android:id="@+id/balance_checkBox"
             android:layout_below="@+id/my_toolbar"
             android:layout_alignParentStart="true"
             android:checked="false" />
@@ -63,14 +53,15 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout"
-        android:layout_centerHorizontal="true">
+        android:layout_below="@+id/layout1"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/layout2">
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Budget"
-            android:id="@+id/checkBox2"
+            android:id="@+id/budget_checkBox"
             android:checked="false" />
 
         <EditText
@@ -84,31 +75,80 @@
             android:layout_weight="1"
             android:hint="Enter amount" />
     </LinearLayout>
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/currencies"
-        android:prompt="@string/country_prompt"
-        android:layout_below="@+id/upd_update_currencies"
-        android:layout_alignParentEnd="true" />
 
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/spinner1"
-        android:layout_alignParentStart="true"
-        android:entries="@array/currencies"
-        />
-
-    <Button
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Update Currencies"
-        android:id="@+id/upd_update_currencies"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="onUpdateCurrenciesClick"/>
+        android:id="@+id/layout3"
+        android:layout_below="@id/layout2">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Home Currency"
+            android:id="@+id/home_checkBox"
+            android:checked="false" />
+
+        <Spinner
+            android:id="@+id/upd_home_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/currencies"
+            android:layout_below="@+id/upd_update_currencies"
+            android:layout_alignParentEnd="true"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout4"
+        android:layout_below="@+id/layout3"
+        android:layout_alignParentStart="true">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Foreign Currency"
+            android:id="@+id/foreign_checkbox"
+            android:checked="false" />
+
+        <Spinner
+            android:id="@+id/upd_foreign_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/upd_home_spinner"
+            android:layout_alignParentStart="true"
+            android:entries="@array/currencies"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout5"
+        android:layout_below="@+id/linearLayout4">
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update Currencies"
+            android:id="@+id/upd_update_currencies"
+            android:onClick="onUpdateCurrenciesClick"
+            android:layout_centerHorizontal="true"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update"
+            android:id="@+id/inp_update"
+            android:onClick="onUpdateClick"
+            />
+    </LinearLayout>
+
 
 </RelativeLayout>

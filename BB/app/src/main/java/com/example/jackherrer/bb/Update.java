@@ -18,7 +18,7 @@ public class Update {
 
     private static final String CURRENCY_URL  = "https://openexchangerates.org/api/latest.json?app_id=7777406857a9410a90d1f4891a5e47fd";
 
-    static public void currencyUpdate(final Context context){
+    static public void currencyRatesUpdate(final Context context){
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(CURRENCY_URL, new AsyncHttpResponseHandler() {
@@ -50,8 +50,7 @@ public class Update {
                 editor.commit();
 
                 Log.i("Currencies:", String.valueOf(ratesJson));
-                Toast.makeText(context, "Update Succesful", Toast.LENGTH_SHORT).show();
-                setExchangeRate(context);
+                Toast.makeText(context, "Currency rates updated", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -62,6 +61,8 @@ public class Update {
     }
 
     static void changeForeignCurrency(Context context, String currency){
+
+        ParseApp.saveInParse("foreignCurrency", currency);
         SharedPreferences values = context.getSharedPreferences("values", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = values.edit();
         editor.putString("foreign_currency", currency);
@@ -69,6 +70,8 @@ public class Update {
     }
 
     static void changeHomeCurrency(Context context, String currency){
+
+        ParseApp.saveInParse("homeCurrency", currency);
         SharedPreferences values = context.getSharedPreferences("values", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = values.edit();
         editor.putString("home_currency", currency);
@@ -80,13 +83,14 @@ public class Update {
         String currenciesString = values.getString("recent_currencies", "error");
         SharedPreferences.Editor editor = values.edit();
 
+        // Get rates object
         JSONObject currenciesObject = null;
         try {
             currenciesObject = new JSONObject(currenciesString);
             currenciesObject = currenciesObject.getJSONObject("rates");
         } catch (JSONException e) {
             e.printStackTrace();
-        }
+        } 
 
         // get home and foreign currency
         String homecurrency = values.getString("home_currency", "error");
@@ -121,6 +125,11 @@ public class Update {
             return defaultValue;
 
         return Double.longBitsToDouble(prefs.getLong(key, 0));
+    }
+
+    static double roundDouble (double input){
+        double inputDouble = Math.round(input * 100);
+        return inputDouble / 100;
     }
 
 }

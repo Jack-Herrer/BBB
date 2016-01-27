@@ -8,8 +8,8 @@
         android:title="@string/actionbar_help"
         app:showAsAction="never"/>
 
-    <item android:id="@+id/action_settings"
-        android:title="@string/actionbar_settings"
+    <item android:id="@+id/action_login"
+        android:title="Login"
         app:showAsAction="never"/>
 
     <item android:id="@+id/action_exit"

@@ -10,7 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".BudgetViewActivity">
 
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
@@ -18,8 +17,7 @@
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        />
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -67,16 +65,15 @@
         android:onClick="onAtmClick"
         />
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Balance"
         android:id="@+id/textView"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/bv_budget_bar"
         android:layout_centerHorizontal="true"
-        />
+        android:layout_marginTop="74dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -90,21 +87,21 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Large Text"
-        android:id="@+id/bv_start_balance_view"
+        android:id="@+id/bv_start_budget_view"
         android:layout_above="@+id/bv_input"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="48dp" />
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Log in"
-        android:id="@+id/bv_log_in_button"
-        android:layout_below="@+id/my_toolbar"
-        android:layout_centerHorizontal="true"
-        android:onClick="onLoginClick"/>
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Large Text"
+        android:id="@+id/bv_budget_left"
+        android:layout_above="@+id/bv_start_budget_view"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

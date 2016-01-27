@@ -111,6 +111,32 @@ user accounts can save information including full json with exchange rates
 
 all rates in shared prefs automatically changed through setExchangeRate method
 
+# day 14
+
+rounding of doubles
+simple history view impelemted
+
+
+# day 15
+
+ill
+
+# day 16
+
+missing action bars added
+tansaction costs taken into account
+history item [0] not shown
+
+
+# day 17
+
+fetching all relevant data from parse.com
+
+# day 18
+
+problems: background problem, eur to eur = 0.99999,
+
+
 
 
 

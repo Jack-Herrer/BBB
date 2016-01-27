@@ -13,12 +13,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 public class AtmActivity extends AppCompatActivity {
     public double exchangeRate = 0.0;
@@ -31,7 +31,7 @@ public class AtmActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
 
         SharedPreferences values = getSharedPreferences("values", Context.MODE_PRIVATE);
-        final String homeCurrency = values.getString("home_currency", "error");
+        final String homeCurrency = values.getString("home_currency", "currency not set");
 
         exchangeRate = Update.getDouble(values, "exchange_rate", 0.0);
 
@@ -41,12 +41,14 @@ public class AtmActivity extends AppCompatActivity {
         final ProgressBar balanceBar = (ProgressBar) findViewById(R.id.atm_balance_bar);
 
         TextView balanceView = (TextView) findViewById(R.id.atm_current_balance);
-        balanceView.setText("" + bankBalance);
+        balanceView.setText("" + Update.roundDouble(bankBalance));
+
+        balanceAfterView.setText("" + Update.roundDouble(bankBalance));
 
         final EditText inputBox = (EditText) findViewById(R.id.atm_withdrawal_input);
 
         final TextView foreignCurrencySymbol = (TextView) findViewById(R.id.atm_foreign_symbol);
-        final String foreignCurrency = values.getString("foreign_currency", "N.A.");
+        final String foreignCurrency = values.getString("foreign_currency", "currency not set");
         Toast.makeText(this, foreignCurrency, Toast.LENGTH_SHORT).show();
 
         foreignCurrencySymbol.setText(foreignCurrency);
@@ -64,12 +66,17 @@ public class AtmActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {//
                 try {
                     double inputAmount = Double.parseDouble(inputBox.getText().toString());
-                    homeCurrencyView.setText(homeCurrency+ " " + inputAmount * exchangeRate);
-                    balanceAfterView.setText(homeCurrency + " " + (bankBalance - (inputAmount * exchangeRate)));
-                    balanceBar.setProgress((int) ((inputAmount / bankBalance) * 100 * exchangeRate));
+                    homeCurrencyView.setText(homeCurrency+ " " + Update.roundDouble(inputAmount * exchangeRate));
+                    balanceAfterView.setText(homeCurrency + " " + Update.roundDouble(bankBalance - (inputAmount * exchangeRate)));
+                    balanceBar.setProgress((int) (Update.roundDouble(inputAmount / bankBalance) * 100 * exchangeRate));
+                    if(bankBalance - inputAmount < 0){
+                        balanceBar.setProgress(100);
+                    }
 
                 } catch (final NumberFormatException e) {
-                    Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
+                    homeCurrencyView.setText(homeCurrency+ " 0.00");
+                    balanceAfterView.setText(homeCurrency + " " + bankBalance);
+                    balanceBar.setProgress(0);
                 }
             }
         });
@@ -84,24 +91,34 @@ public class AtmActivity extends AppCompatActivity {
     public void onWithdrawClick(View view) {
         SharedPreferences values = getSharedPreferences("values", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = values.edit();
+        double inputAmount;
 
-
+        double bankBalance = 0;
         try {
-            final double bankBalance = Update.getDouble(values, "bankBalance", 2.10);
             final EditText inputBox = (EditText) findViewById(R.id.atm_withdrawal_input);
-            double inputAmount = Double.parseDouble(inputBox.getText().toString());
+            inputAmount = Double.parseDouble(inputBox.getText().toString());
+            bankBalance = Update.getDouble(values, "bankBalance", 2.10);
             Update.putDouble(editor, "bankBalance", bankBalance - (inputAmount * exchangeRate));
+            ParseApp.saveInParse("bankBalance", bankBalance - (inputAmount * exchangeRate));
+            HistoryItem.historyToJson(this, inputAmount);
             editor.commit();
-            ParseApp.saveInParse("bankBalance", bankBalance  - (inputAmount * exchangeRate));
-        } catch (final NumberFormatException e) {
-            //catch non doubles
-        }
 
-        Intent toBudgetView= new Intent(this, BudgetViewActivity.class);
-        this.startActivity(toBudgetView);
-        this.finish();
+            // Adapt historyview
+            Intent toHistory = new Intent(this, HistoryViewActivity.class);
+            toHistory.putExtra("withdrawn", true);
+            this.startActivity(toHistory);
+            this.finish();
+
+        } catch (final NumberFormatException e) {
+            Toast.makeText(getApplicationContext(), "nothing to withdraw", Toast.LENGTH_SHORT).show();
+            Intent toBudgetView = new Intent(this, BudgetViewActivity.class);
+            this.startActivity(toBudgetView);
+            this.finish();
+        }
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        return ActionMenuHandler.handleMenu(item, this);
     }
 
 }
-
-

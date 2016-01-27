@@ -10,17 +10,13 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.parse.ParseUser;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.widget.Toast;
 
 public class BudgetViewActivity extends AppCompatActivity {
 
@@ -30,53 +26,39 @@ public class BudgetViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_budget_view);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+        initialiseFields();
+    }
 
+    public void initialiseFields(){
         SharedPreferences values = getSharedPreferences("values", Context.MODE_PRIVATE);
-
         double bankBalance =  Update.getDouble(values, "bankBalance", 0.00);
         double budget = Update.getDouble(values, "budget", 0.00);
-        boolean currenciesUpdated = values.getBoolean("currencies_updated", false);
+        double exchangerate = Update.getDouble(values, "exchange_rate", 0.00);
         String foreignCurrency = values.getString("foreign_currency", "n.a.");
+        String homeCurrency = values.getString("home_currency", "n.a.");
+
+        Toast.makeText(this, String.valueOf(bankBalance), Toast.LENGTH_SHORT).show();
 
 
-        if(currenciesUpdated) {
-
-            //currencies = oldcurrencies
-            //balance = (balance / by old currency) * new currency
-            // set homecurrency
-            // set guest currency
-
-            String newCurrencies = values.getString("recent_currencies", "error");
-
-
-            try {
-                JSONObject newCurrenciesObject = new JSONObject(newCurrencies);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-
-            Log.i("currencies budgetview", newCurrencies);
-            SharedPreferences.Editor editor = values.edit();
-            editor.putBoolean("currency_updated", false);
-            editor.commit();
-        }
 
         TextView balanceView = (TextView) findViewById(R.id.bv_ballance_amount_view);
-        balanceView.setText("" + bankBalance);
+        balanceView.setText("" + homeCurrency + " " + Update.roundDouble(bankBalance));
 
-        TextView startBalanceView = (TextView) findViewById(R.id.bv_start_balance_view);
-        startBalanceView.setText("Start Balance: " + budget);
+        TextView startBudgetView = (TextView) findViewById(R.id.bv_start_budget_view);
+        startBudgetView.setText("Start Budget: " + homeCurrency + " " + Update.roundDouble(budget) + "    " + foreignCurrency + " " + Update.roundDouble(budget * exchangerate));
+
+        TextView budgetView = (TextView) findViewById(R.id.bv_budget_left);
+        budgetView.setText("Budget Left:  " + homeCurrency + " " + Update.roundDouble(budget) + "    " + foreignCurrency + " " + Update.roundDouble(budget * exchangerate));
 
         ProgressBar budgetBar = (ProgressBar) findViewById(R.id.bv_budget_bar);
         budgetBar.setProgress((int) (((budget - bankBalance) / budget) * 100));
     }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.action_bar_menu, menu);
         return true;
     }
-
 
     public void onInputClick(View view) {
         Intent toInputActivity= new Intent(this, UpdateActivity.class);
@@ -96,9 +78,7 @@ public class BudgetViewActivity extends AppCompatActivity {
         this.finish();
     }
 
-    public void onLoginClick(View view) {
-        Intent toLoginActivity= new Intent(this, LoginActivity.class);
-        this.startActivity(toLoginActivity);
-        this.finish();
+    public boolean onOptionsItemSelected(MenuItem item){
+        return ActionMenuHandler.handleMenu(item, this);
     }
 }

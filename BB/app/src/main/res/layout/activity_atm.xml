@@ -17,8 +17,7 @@
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        />
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
@@ -43,7 +42,15 @@
         android:onClick="onWithdrawClick"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="update"
+        android:id="@+id/bv_input"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="onUpdateClick"/>
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,7 +60,12 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:hint="Enter Amount"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:maxLength="12"/>
+
+    Intent toBudgetView= new Intent(this, BudgetViewActivity.class);
+    this.startActivity(toBudgetView);
+    this.finish();
 
     <TextView
         android:layout_width="wrap_content"
@@ -114,4 +126,14 @@
         android:id="@+id/atm_foreign_symbol"
         android:layout_alignTop="@+id/atm_withdrawal_input"
         android:layout_alignStart="@+id/atm_withdrawal_input" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:id="@+id/atm_back"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:onClick="onBack"/>
+
 </RelativeLayout>

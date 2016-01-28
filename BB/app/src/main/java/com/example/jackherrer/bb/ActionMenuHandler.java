@@ -1,22 +1,38 @@
 package com.example.jackherrer.bb;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.view.MenuItem;
-
 /**
- * Created by marley on 25-1-16.
+ * Created by Michiel van der LIst on 25-1-16.
  * Student nr 10363521
  * michielvanderlist@gmail.com
  */
+
+import android.app.Activity;
+import android.content.Intent;
+import android.view.MenuItem;
+import android.widget.Toast;
+import com.parse.ParseUser;
+
 public class ActionMenuHandler {
     static public boolean handleMenu(MenuItem item, Activity activity) {
 
         switch (item.getItemId()) {
-            case R.id.action_help:
-                Intent new_game = new Intent(activity, HelpActivity.class);
-                activity.startActivity(new_game);
-                activity.finish();
+            case R.id.action_logout:
+
+                // log out current user and send to input screen
+                if(ParseUser.getCurrentUser() != null) {
+                    ParseUser.logOut();
+
+                    Intent intent = new Intent(activity, UpdateActivity.class);
+                    intent.putExtra("firstUse", true);
+                    activity.startActivity(intent);
+                    activity.finish();
+
+                    Toast.makeText(activity.getApplicationContext(), "Log out successful",
+                            Toast.LENGTH_SHORT).show();
+                } else{
+                    Toast.makeText(activity.getApplicationContext(), "No user currently logged in",
+                            Toast.LENGTH_SHORT).show();
+                }
                 return true;
 
             case R.id.action_login:

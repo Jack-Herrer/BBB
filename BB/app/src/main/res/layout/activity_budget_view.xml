@@ -22,12 +22,12 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Input"
-        android:id="@+id/bv_input"
+        android:text="update"
+        android:id="@+id/bv_update"
         android:layout_gravity="bottom"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:onClick="onInputClick"/>
+        android:onClick="onUpdateClick"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -58,8 +58,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ATM"
-        android:id="@+id/bv_atm"
+        android:text="withdraw"
+        android:id="@+id/bv_withdraw"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="onAtmClick"
@@ -87,21 +87,48 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Large Text"
         android:id="@+id/bv_start_budget_view"
-        android:layout_above="@+id/bv_input"
+        android:layout_below="@+id/bv_foreign_ballance_amount_view"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="48dp" />
+        android:layout_marginTop="107dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Large Text"
+        android:id="@+id/bv_budget_left"
+        android:layout_below="@+id/bv_budget_spent"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Large Text"
+        android:id="@+id/bv_budget_spent"
+        android:layout_below="@+id/bv_start_budget_view"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Foreign balance"
+        android:id="@+id/bv_foreign_ballance_amount_view"
+        android:layout_below="@+id/bv_ballance_amount_view"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Large Text"
-        android:id="@+id/bv_budget_left"
-        android:layout_above="@+id/bv_start_budget_view"
-        android:layout_centerHorizontal="true" />
+        android:text="Not logged in"
+        android:id="@+id/bv_logged_in_as"
+        android:layout_below="@+id/my_toolbar"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

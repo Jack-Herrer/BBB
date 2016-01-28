@@ -1,5 +1,11 @@
 package com.example.jackherrer.bb;
 
+/**
+ * Created by Michiel van der LIst on 25-1-16.
+ * Student nr 10363521
+ * michielvanderlist@gmail.com
+ */
+
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
@@ -27,18 +33,14 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Created by jackherrer on 13-1-16.
- */
 public class ParseApp extends Application {
 
     public void onCreate() {
         super.onCreate();
         Parse.initialize(this, "1NdzsnA614zjI8b8SavdKnIqgc0MRZ4CcNIziTwV", "WzigF4V1IKSlTRJendFDfyl9De0u1rl3sK554Och");
-
     }
 
-    // save string in parse
+    // save string in parse. source: https://parse.com/docs/android/guide
     static void saveInParse(final String key,final String value){
         //retrieve parseobject based on currentuser
         ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
@@ -101,6 +103,7 @@ public class ParseApp extends Application {
             }
         });
     }
+
     void getValuesFromParse(final Activity activity, final Context context){
         //retrieve parseobject based on currentuser
         if(ParseUser.getCurrentUser() != null) {
@@ -116,23 +119,17 @@ public class ParseApp extends Application {
                             SharedPreferences values = context.getSharedPreferences("values", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = values.edit();
 
-                            //ParseFile historyParseFile = result.getParseFile("history");
-
-
                             writeToLocalHistory(context, result.getParseFile("history"));
                             editor.putString("home_currency", result.getString("homeCurrency"));
                             editor.putString("foreign_currency", result.getString("foreignCurrency"));
                             Update.putDouble(editor, "bankBalance", result.getDouble("bankBalance"));
                             Update.putDouble(editor, "budget", result.getDouble("budget"));
                             editor.commit();
-                            //editor.apply();
                         }
 
                         Intent intent = new Intent(activity.getApplicationContext(), BudgetViewActivity.class);
                         activity.startActivity(intent);
                         activity.finish();
-
-
                     } else {
                         Log.d("mainactivity", "query lukt niet");
                     }
@@ -142,6 +139,7 @@ public class ParseApp extends Application {
     }
 
     static void writeToLocalHistory(Context context, ParseFile parseFile){
+
         // use stringbuilder to read history parsefile
         try {
             BufferedReader br = new BufferedReader(new FileReader(parseFile.getFile()));

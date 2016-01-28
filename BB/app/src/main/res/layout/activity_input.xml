@@ -46,7 +46,8 @@
             android:layout_below="@+id/my_toolbar"
             android:layout_alignParentEnd="true"
             android:layout_weight="1"
-            android:hint="Enter amount"/>
+            android:hint="Enter amount"
+            android:maxLength="12"/>
     </LinearLayout>
 
     <LinearLayout
@@ -73,7 +74,8 @@
             android:layout_below="@+id/my_toolbar"
             android:layout_alignParentEnd="true"
             android:layout_weight="1"
-            android:hint="Enter amount" />
+            android:hint="Enter amount"
+            android:maxLength="12"/>
     </LinearLayout>
 
     <LinearLayout
@@ -132,23 +134,63 @@
         android:id="@+id/layout5"
         android:layout_below="@+id/linearLayout4">
 
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Update Currencies"
-            android:id="@+id/upd_update_currencies"
-            android:onClick="onUpdateCurrenciesClick"
-            android:layout_centerHorizontal="true"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Update"
-            android:id="@+id/inp_update"
-            android:onClick="onUpdateClick"
-            />
     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout"
+        android:layout_below="@+id/layout5"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="68dp">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Spent"
+            android:id="@+id/inp_spent_box"
+            android:checked="false" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/inp_spent_field"
+            android:layout_below="@+id/my_toolbar"
+            android:layout_alignParentEnd="true"
+            android:layout_weight="1"
+            android:hint="Enter amount"
+            android:maxLength="12"/>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="clear data"
+        android:id="@+id/upd_clear_data"
+        android:onClick="onClearDataClick"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update"
+        android:id="@+id/inp_update"
+        android:onClick="onUpdateClick"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:id="@+id/history_back"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:onClick="onBack"/>
 
 
 </RelativeLayout>

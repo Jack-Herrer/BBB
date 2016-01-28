@@ -1,5 +1,10 @@
 package com.example.jackherrer.bb;
 
+/**
+ * Created by Michiel van der LIst on 14-1-16.
+ * Student nr 10363521
+ * michielvanderlist@gmail.com
+ */
 
 
 import android.content.Intent;
@@ -12,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
@@ -21,9 +25,6 @@ public class SignUpActivity extends AppCompatActivity {
     EditText mUsernameField;
     EditText mPasswordField;
     EditText mEmailField;
-    Intent intent;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class SignUpActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Sorry, you must supply a password", Toast.LENGTH_SHORT).show();
                             break;
                         case ParseException.EMAIL_TAKEN:
-                            Toast.makeText(getApplicationContext(), "Sorry, this email adress is allready taken", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Sorry, this email address is already taken", Toast.LENGTH_SHORT).show();
                             break;
                         case ParseException.OBJECT_NOT_FOUND:
                             Toast.makeText(getApplicationContext(), "Those credentials were invalid", Toast.LENGTH_SHORT).show();
@@ -96,5 +97,11 @@ public class SignUpActivity extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item){
         return ActionMenuHandler.handleMenu(item, this);
+    }
+
+    public void onBack(View view) {
+        Intent toAtmActivity= new Intent(this, AtmActivity.class);
+        this.startActivity(toAtmActivity);
+        this.finish();
     }
 }

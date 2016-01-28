@@ -134,7 +134,13 @@ fetching all relevant data from parse.com
 
 # day 18
 
+code cleaning
 problems: background problem, eur to eur = 0.99999,
+
+# day 19
+layouts completed
+code cleaning
+start screen
 
 
 

@@ -2,6 +2,8 @@ package com.example.jackherrer.bb;
 
 /**
  * Created by Michiel van der List on 6-1-16.
+ * Student nr 10363521
+ * michielvanderlist@gmail.com
  */
 
 import android.content.Context;
@@ -15,7 +17,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -27,6 +28,9 @@ public class UpdateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_input);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
+        Update.currencyRatesUpdate(this);
+        firstUse();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -53,47 +57,66 @@ public class UpdateActivity extends AppCompatActivity {
             Update.changeHomeCurrency(this, homeSpinner.getSelectedItem().toString());
         }
 
-        // update balance
-        EditText bankBalanceBox = (EditText)findViewById(R.id.inp_enter_balance);
-        CheckBox balanceCheck = (CheckBox) findViewById(R.id.balance_checkBox);
-        if(balanceCheck.isChecked()) {
-            try {
-                double bankBalance = Double.parseDouble(bankBalanceBox.getText().toString());
-                Update.putDouble(editor, "bankBalance", bankBalance);
-                editor.commit();
-                ParseApp.saveInParse("bankBalance", bankBalance);
-            } catch (final NumberFormatException e) {
-                Toast.makeText(getApplicationContext(), "failed to update balance: no input", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        // update budget
-        EditText budgetBox = (EditText)findViewById(R.id.inp_budget_box);
-        CheckBox budgetCheck = (CheckBox) findViewById(R.id.budget_checkBox);
-        if(budgetCheck.isChecked()) {
-            try {
-                double budget = Double.parseDouble(budgetBox.getText().toString());
-                Update.putDouble(editor, "budget", budget);
-                editor.commit();
-                ParseApp.saveInParse("budget", budget);
-
-            } catch (final NumberFormatException e) {
-                Toast.makeText(getApplicationContext(), "failed to update budget: no input", Toast.LENGTH_SHORT).show();
-            }
-        }
-
+        Update.updateBalance(this);
+        Update.updateBudget(this);
+        Update.updateSpent(this);
         Update.setExchangeRate(this);
+
+        editor.commit();
+
         Intent toBudgetView= new Intent(this, BudgetViewActivity.class);
         this.startActivity(toBudgetView);
         this.finish();
-    }
-    public void onUpdateCurrenciesClick(View view) {
-
-        Update.currencyRatesUpdate(this);
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
         return ActionMenuHandler.handleMenu(item, this);
     }
 
+    public void onClearDataClick(View view) {
+        Update.clearData(this);
+        Intent toBudgetView= new Intent(this, BudgetViewActivity.class);
+        this.startActivity(toBudgetView);
+        this.finish();
+    }
+
+    public void firstUse() {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            boolean firstUse = extras.getBoolean("firstUse");
+            if (firstUse) {
+                SharedPreferences values = getSharedPreferences("values", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = values.edit();
+                editor.putBoolean("firstUse", false);
+                editor.commit();
+
+                CheckBox homeCheck = (CheckBox) findViewById(R.id.home_checkBox);
+                CheckBox foreignCheck = (CheckBox) findViewById(R.id.foreign_checkbox);
+                CheckBox balanceCheck = (CheckBox) findViewById(R.id.balance_checkBox);
+                CheckBox budgetCheck = (CheckBox) findViewById(R.id.budget_checkBox);
+                CheckBox spentCheck = (CheckBox) findViewById(R.id.inp_spent_box);
+
+                homeCheck.setChecked(true);
+                foreignCheck.setChecked(true);
+                balanceCheck.setChecked(true);
+                budgetCheck.setChecked(true);
+                spentCheck.setChecked(true);
+
+                homeCheck.setClickable(false);
+                foreignCheck.setClickable(false);
+                balanceCheck.setClickable(false);
+                budgetCheck.setClickable(false);
+                spentCheck.setClickable(false);
+
+                Toast.makeText(getApplicationContext(), "Please fill in all fields before you start", Toast.LENGTH_LONG).show();
+                Update.currencyRatesUpdate(this);
+            }
+        }
+    }
+
+    public void onBack(View view) {
+        Intent toBudgetView= new Intent(this, BudgetViewActivity.class);
+        this.startActivity(toBudgetView);
+        this.finish();
+    }
 }

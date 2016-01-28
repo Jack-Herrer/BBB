@@ -1,7 +1,9 @@
 package com.example.jackherrer.bb;
 
-/**
- * Created by Michiel van der List on 11-1-16.
+ /**
+ * Created by Michiel van der List on 12-1-16.
+ * Student nr 10363521
+ * michielvanderlist@gmail.com
  */
 
 import android.content.Context;
@@ -10,33 +12,21 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
-
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-
 import org.apache.commons.io.FileUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
 
 public class HistoryViewActivity extends AppCompatActivity {
     private ArrayList<String> items;
@@ -49,21 +39,17 @@ public class HistoryViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_history_view);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
         lvItems = (ListView) findViewById(R.id.lvItems);
         items = new ArrayList<String>();
 
-        readItems();
         itemsAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, items);
         lvItems.setAdapter(itemsAdapter);
+
+        readItems();
         setupListViewListener();
         addHistory();
-    }
-
-    public void onBack(View view) {
-        Intent toBudgetView= new Intent(this, BudgetViewActivity.class);
-        this.startActivity(toBudgetView);
-        this.finish();
     }
 
     public void addItem(String text) {
@@ -93,18 +79,16 @@ public class HistoryViewActivity extends AppCompatActivity {
         ParseApp.saveInParse("history", historyfile);
     }
 
+    // long click listener for removal
     private void setupListViewListener() {
         lvItems.setOnItemLongClickListener(
                 new AdapterView.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> adapter,
                                                    View item, int pos, long id) {
-                        // Remove the item within array at position
                         items.remove(pos);
-                        // Refresh the adapter
                         itemsAdapter.notifyDataSetChanged();
                         writeItems();
-                        // Return true consumes the long click event (marks it handled)
                         return true;
                     }
                 });
@@ -124,15 +108,15 @@ public class HistoryViewActivity extends AppCompatActivity {
         SharedPreferences values = this.getSharedPreferences("values", Context.MODE_PRIVATE);
         String history = values.getString("history", "error");
 
-
         // add history item if withdrawn
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             boolean addToHistory = extras.getBoolean("withdrawn");
             if (addToHistory) {
-                //JSONObject historyObject = null;
                 String foreignCurrency = null;
                 double withdrawn = 0;
+
+                // get history json object
                 try {
                     JSONObject historyObject = new JSONObject(history);
                     foreignCurrency = historyObject.getString("foreignCurrency");
@@ -151,4 +135,23 @@ public class HistoryViewActivity extends AppCompatActivity {
             }
         }
     }
+
+    public void onUpdateClick(View view) {
+        Intent toInputActivity= new Intent(this, UpdateActivity.class);
+        this.startActivity(toInputActivity);
+        this.finish();
+    }
+
+    public void onWithdrawClick(View view) {
+        Intent toAtmActivity= new Intent(this, AtmActivity.class);
+        this.startActivity(toAtmActivity);
+        this.finish();
+    }
+
+    public void onBack(View view) {
+        Intent toBudgetView= new Intent(this, BudgetViewActivity.class);
+        this.startActivity(toBudgetView);
+        this.finish();
+    }
+
 }

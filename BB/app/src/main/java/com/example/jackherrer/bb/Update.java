@@ -1,29 +1,26 @@
 package com.example.jackherrer.bb;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.Toast;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-
-import org.apache.commons.io.FileUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import cz.msebera.android.httpclient.Header;
-
 /**
  * Created by Michiel van der List on 19-1-16.
  * Student nr 10363521
  * michielvanderlist@gmail.com
  */
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.Toast;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import org.apache.commons.io.FileUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import cz.msebera.android.httpclient.Header;
 
 public class Update {
 
@@ -175,7 +172,6 @@ public class Update {
             exchangeRate = ((1 / foreignRate) * homeRate);
         }
         putDouble(editor, "exchange_rate", exchangeRate);
-        Toast.makeText(context, "rate" + exchangeRate , Toast.LENGTH_SHORT).show();
         editor.commit();
     }
 
@@ -222,5 +218,7 @@ public class Update {
         editor.commit();
         Toast.makeText(context, "Data successfully cleared",
                 Toast.LENGTH_SHORT).show();
+
+        setExchangeRate(context);
     }
 }

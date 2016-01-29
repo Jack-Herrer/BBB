@@ -65,10 +65,14 @@ public class BudgetViewActivity extends AppCompatActivity {
                 f.format(Update.roundDouble(budget / exchangerate)));
         budgetView.setText("Budget Left:  " + homeCurrency + " " +
                 f.format(Update.roundDouble(budget - spent)) + "    " + foreignCurrency + " " +
-                f.format(Update.roundDouble(budget / exchangerate)));
-        budgetBar.setProgress((int) (((budget - bankBalance) / budget) * 100));
+                f.format(Update.roundDouble((budget - spent) / exchangerate)));
+        if(budget - spent < 0.0){
+            budgetBar.setProgress(100);
+        } else
+            budgetBar.setProgress((int) (((budget - spent) / budget) * 100));
+
         if(ParseUser.getCurrentUser() != null)
-        loggedInView.setText("Logged in as: " + ParseUser.getCurrentUser().getString("username"));
+            loggedInView.setText("Logged in as: " + ParseUser.getCurrentUser().getString("username"));
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

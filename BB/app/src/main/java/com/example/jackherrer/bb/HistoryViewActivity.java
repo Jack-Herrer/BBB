@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,6 +33,8 @@ public class HistoryViewActivity extends AppCompatActivity {
     private ArrayList<String> items;
     private ArrayAdapter<String> itemsAdapter;
     private ListView lvItems;
+    DecimalFormat f = new DecimalFormat("#0.00");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +46,12 @@ public class HistoryViewActivity extends AppCompatActivity {
         lvItems = (ListView) findViewById(R.id.lvItems);
         items = new ArrayList<String>();
 
+        readItems();
+
         itemsAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, items);
         lvItems.setAdapter(itemsAdapter);
 
-        readItems();
         setupListViewListener();
         addHistory();
     }
@@ -126,7 +130,7 @@ public class HistoryViewActivity extends AppCompatActivity {
                 }
                 SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy [HH:mm]");
                 String date = df.format(Calendar.getInstance().getTime());
-                addItem(date + ": " + foreignCurrency + " " + withdrawn);
+                addItem(date + ": " + foreignCurrency + " " + f.format(withdrawn));
 
                 // go to budgetview
                 Intent toBudgetView = new Intent(this, BudgetViewActivity.class);
@@ -147,11 +151,9 @@ public class HistoryViewActivity extends AppCompatActivity {
         this.startActivity(toAtmActivity);
         this.finish();
     }
-
     public void onBack(View view) {
         Intent toBudgetView= new Intent(this, BudgetViewActivity.class);
         this.startActivity(toBudgetView);
         this.finish();
     }
-
 }

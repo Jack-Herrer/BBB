@@ -1,3 +1,6 @@
+# IMPORTANT: App is unavailable for testing since parse api is not supported anymore
+
+
 # B.B.B.
 ATM Assistant
 
